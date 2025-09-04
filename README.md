@@ -1,0 +1,1 @@
+# flashcards-trainer-js
