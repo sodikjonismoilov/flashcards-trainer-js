@@ -1,33 +1,92 @@
 <!doctype html>
-<html class="no-js" lang="">
-
+<html lang="en" class="no-js">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flashcards Trainer</title>
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
+  <!-- Tailwind (browser build) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Your styles -->
+  <link rel="stylesheet" href="css/style.css" />
 
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+  <meta name="theme-color" content="#0f172a" />
 </head>
+<body class="min-h-screen bg-slate-900 text-slate-100">
+<header class="max-w-3xl mx-auto p-4 flex justify-between items-center">
+  <h1 class="text-xl font-semibold">Flashcards Trainer</h1>
+  <button id="newBtn" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 focus-visible:outline-none focus-visible:ring">
+    New Card
+  </button>
+</header>
 
-<body>
+<main class="max-w-3xl mx-auto p-4 space-y-6">
+  <!-- Card viewport (parent holds perspective) -->
+  <section class="relative h-64 [perspective:1000px]">
+    <div
+      id="card"
+      class="relative h-full w-full rounded-2xl shadow-xl grid place-items-center cursor-pointer transition-transform duration-300 [transform-style:preserve-3d] bg-slate-800"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div
+        id="front"
+        class="absolute inset-0 grid place-items-center text-2xl font-medium px-6 text-center [backface-visibility:hidden]"
+      >
+        Front text
+      </div>
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/app.js"></script>
+      <div
+        id="back"
+        class="absolute inset-0 grid place-items-center text-2xl font-medium px-6 text-center [transform:rotateY(180deg)] [backface-visibility:hidden]"
+      >
+        Back text
+      </div>
+    </div>
+  </section>
 
+  <!-- Controls -->
+  <section class="flex items-center justify-between">
+    <div class="space-x-2">
+      <button id="prevBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring">
+        Prev
+      </button>
+      <button id="nextBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring">
+        Next
+      </button>
+      <button id="flipBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring">
+        Flip
+      </button>
+    </div>
+
+    <button id="deleteBtn" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 focus-visible:outline-none focus-visible:ring">
+      Delete
+    </button>
+  </section>
+</main>
+
+<!-- Modal for new card -->
+<dialog id="newModal" class="rounded-xl p-0 w-full max-w-md text-slate-100">
+  <form id="newForm" method="dialog" class="bg-slate-900 p-4 space-y-3">
+    <h2 class="text-lg font-semibold">New Card</h2>
+    <label class="block">
+      <span class="text-sm text-slate-300">Front</span>
+      <input id="frontInput" class="w-full mt-1 rounded-md bg-slate-800 p-2 focus-visible:outline-none focus-visible:ring" placeholder="Question" required />
+    </label>
+    <label class="block">
+      <span class="text-sm text-slate-300">Back</span>
+      <input id="backInput" class="w-full mt-1 rounded-md bg-slate-800 p-2 focus-visible:outline-none focus-visible:ring" placeholder="Answer" required />
+    </label>
+    <div class="flex justify-end gap-2 pt-2">
+      <button type="button" id="cancelNew" class="px-3 py-1.5 bg-slate-800 rounded-md hover:bg-slate-700">Cancel</button>
+      <button type="submit" class="px-3 py-1.5 bg-sky-600 rounded-md hover:bg-sky-500">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- App JS -->
+<script src="js/app.js"></script>
 </body>
-
 </html>
+
